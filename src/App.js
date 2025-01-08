@@ -1,19 +1,20 @@
 import ChatRoom from "./components/ChatRoom";
-import Login from "./components/Login";
+import Login from "./components/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { StrictMode } from "react";
+import { StrictMode, use } from "react";
 // Dương Hương Hướng Hảo
 function App() {
+  const user = false;
   return (
     <div className="container">
       <StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<ChatRoom />} />
-        </Routes>
-      </BrowserRouter>
-    </StrictMode>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ChatRoom />} />
+            <Route path="/home" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </StrictMode>
     </div>
   );
 }
