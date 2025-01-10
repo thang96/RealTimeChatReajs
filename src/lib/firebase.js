@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
+// import.meta.env.VITE_API_KEY
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
+  apiKey: "AIzaSyCRveUcqW18_ZWj1T8sF8Q2bWUPKuStYTM",
   authDomain: "chat-app-925a1.firebaseapp.com",
   projectId: "chat-app-925a1",
   storageBucket: "chat-app-925a1.appspot.com",
@@ -15,6 +15,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth();
-export const db = getFirestore();
-export const storage = getStorage();
+const auth = getAuth();
+const db = getFirestore();
+const storage = getStorage();
+
+export { auth, db, storage };

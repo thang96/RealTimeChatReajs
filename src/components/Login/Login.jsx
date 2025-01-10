@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./login.css";
-import { ToastContainer, toast } from 'react-toastify';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [avatar, setAvatar] = useState({
@@ -18,7 +21,31 @@ const Login = () => {
   };
 
   const handleLogin = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+  };
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const { username, email, password } = Object.fromEntries(formData);
+    toast.success("Account created! You can login now");
+    try {
+      // const res = await createUserWithEmailAndPassword(auth, email, password);
+      // await setDoc(doc(db, "users", res.user.uid), {
+      //   username,
+      //   email,
+      //   id: res.user.uid,
+      //   blocked: [],
+      // });
+      // await setDoc(doc(db, "userchats", res.user.uid), {
+      //   chats: [],
+      // });
+      // toast.success("Account created! You can login now");
+    } catch (error) {
+      console.log(error);
+
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -35,7 +62,7 @@ const Login = () => {
         <div className="separator"></div>
         <div className="item">
           <h2>Create an Account</h2>
-          <form action="">
+          <form action="" onSubmit={handleRegister}>
             <label htmlFor="file">
               <img src={avatar.url || "./avatar.png"} alt="" />
               Upload an image
@@ -47,6 +74,7 @@ const Login = () => {
               onChange={handleAvatar}
             />
             <input type="text" placeholder="Username" name="username" />
+            <input type="text" placeholder="Email" name="email" />
             <input type="password" placeholder="Password" name="password" />
             <button>Sign Up</button>
           </form>

@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "vite": "^6.0.7",
     "web-vitals": "^4.2.4"
   }
 }

@@ -10,8 +10,8 @@ function App() {
       <StrictMode>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ChatRoom />} />
-            <Route path="/home" element={<Login />} />
+            {/* <Route path="/" element={<ChatRoom />} /> */}
+            <Route path="/" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </StrictMode>
