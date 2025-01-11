@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Typography, Flex } from "antd";
-import { logout } from "../firebase/config";
-import Chat from "../chat/Chat";
-import Detail from "../detail/Detail";
-import List from "../list/List";
+import { logout } from "../Firebase/config";
+import Chat from "../Chat/Chat";
+import Detail from "../Detail/Detail";
+import List from "../List/List";
 
 const { Title } = Typography;
 

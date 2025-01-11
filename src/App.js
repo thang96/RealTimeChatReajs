@@ -1,10 +1,19 @@
 import ChatRoom from "./components/ChatRoom";
-import Login from "./components/login/Login";
+import Login from "./components/Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { StrictMode, use } from "react";
+import { StrictMode, use, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./Lib/firebase";
 // Dương Hương Hướng Hảo
 function App() {
-  const user = false;
+  useEffect(() => {
+    const unSub = onAuthStateChanged(auth, (user) => {
+      console.log(user);
+    });
+    return () => {
+      unSub();
+    };
+  }, []);
   return (
     <div className="container">
       <StrictMode>
