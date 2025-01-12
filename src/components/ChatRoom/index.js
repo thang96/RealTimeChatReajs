@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Typography, Flex } from "antd";
-import { logout } from "../Firebase/config";
-import Chat from "../Chat/Chat";
-import Detail from "../Detail/Detail";
-import List from "../List/List";
+import { logout } from "../firebase/config";
+import Chat from "../chat/Chat";
+import Detail from "../detail/Detail";
+import List from "../list/List";
+import { useChatStore } from "../../lib/chatStore";
 
 const { Title } = Typography;
 
 const ChatRoom = () => {
+  const { chatId } = useChatStore();
+
   useEffect(() => {
     // logout();
   }, []);
   return (
-      <div style={{flex:1,display:"flex"}}>
-        {/* <Row justify={"center"} style={{ height: 800 }}>
-          <Title style={{ textAlign: "center" }} level={3}>
-            Fun Chatttttttt
-          </Title>
-        </Row> */}
-        <List/>
-        <Chat/>
-        <Detail/>
-      </div>
+    <div style={{ flex: 1, display: "flex" }}>
+      <List />
+      {chatId && <Chat />}
+      {chatId && <Detail />}
+    </div>
   );
 };
 

@@ -1,5 +1,19 @@
+import { signOut } from "firebase/auth";
 import "./detail.css";
+import { auth } from "../../lib/firebase";
+import { useNavigate } from "react-router-dom";
+
 const Detail = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("./login");
+      })
+      .catch((error) => {
+        console.error("Sign out error:", error);
+      });
+  };
   return (
     <>
       <div className="detail">
@@ -43,7 +57,9 @@ const Detail = () => {
           </div>
 
           <button>Block User</button>
-          <button className="logout">Logout</button>
+          <button className="logout" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
     </>

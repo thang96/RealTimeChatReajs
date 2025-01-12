@@ -1,27 +1,32 @@
-import ChatRoom from "./components/ChatRoom";
-import Login from "./components/Login/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { StrictMode, use, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { StrictMode, use, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./Lib/firebase";
-// Dương Hương Hướng Hảo
+import { auth } from "./lib/firebase";
+import { useUserStore } from "./lib/userStore";
+import MainNavigations from "./components/navigations/mainNotification";
+import Login from "./components/login/fistLogin";
+
 function App() {
+  const { currentUser, isLoading, fetchUserInfo } = useUserStore();
+  const [authChecked, setAuthChecked] = useState(false);
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
-      console.log(user);
+      fetchUserInfo(user?.uid).finally(() => setAuthChecked(true));
     });
     return () => {
       unSub();
     };
-  }, []);
+  }, [fetchUserInfo]);
+  // console.log(currentUser);
+
+  if (isLoading || !authChecked)
+    return <div className="loading">Loading...</div>;
+
   return (
     <div className="container">
       <StrictMode>
         <BrowserRouter>
-          <Routes>
-            {/* <Route path="/" element={<ChatRoom />} /> */}
-            <Route path="/" element={<Login />} />
-          </Routes>
+          <MainNavigations/>
         </BrowserRouter>
       </StrictMode>
     </div>

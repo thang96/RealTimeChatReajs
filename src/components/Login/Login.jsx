@@ -4,10 +4,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../../Lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { upload } from "../../Lib/upload";
+import { upload } from "../../lib/upload";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ const Login = () => {
       await setDoc(doc(db, "users", res.user.uid), {
         username,
         email,
-        avatar: imgUrl,
+        avatar: imgUrl ?? "",
         id: res.user.uid,
         blocked: [],
       });
