@@ -44,6 +44,7 @@ const Chat = () => {
     setText((prev) => prev + event.emoji);
     setOpenEmoji(false);
   };
+
   const handleImg = (e) => {
     if (e.target.files[0]) {
       setImg({
@@ -104,6 +105,7 @@ const Chat = () => {
     });
     setText("");
   };
+
   return (
     <>
       <div className="chat">

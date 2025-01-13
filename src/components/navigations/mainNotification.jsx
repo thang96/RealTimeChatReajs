@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { StrictMode, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Login from "../login/Login";
@@ -7,7 +7,7 @@ import ChatRoom from "../ChatRoom";
 import { useUserStore } from "../../lib/userStore";
 
 const MainNavigations = () => {
-  const { currentUser, fetchUserInfo } = useUserStore();
+  const { fetchUserInfo } = useUserStore();
   const [authChecked, setAuthChecked] = useState(false);
   const navigate = useNavigate(); // Hook điều hướng
 

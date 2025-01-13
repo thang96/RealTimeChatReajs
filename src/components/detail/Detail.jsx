@@ -9,7 +9,6 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 const Detail = () => {
   const navigate = useNavigate();
   const {
-    chatId,
     user,
     isCurrentUserBlocked,
     isReceiverBlocked,
