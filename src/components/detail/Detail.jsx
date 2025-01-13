@@ -1,10 +1,34 @@
 import { signOut } from "firebase/auth";
 import "./detail.css";
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { useNavigate } from "react-router-dom";
+import { useChatStore } from "../../lib/chatStore";
+import { useUserStore } from "../../lib/userStore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 const Detail = () => {
   const navigate = useNavigate();
+  const {
+    chatId,
+    user,
+    isCurrentUserBlocked,
+    isReceiverBlocked,
+    changedBlock,
+  } = useChatStore();
+  const { currentUser } = useUserStore();
+  const handleBlock = async () => {
+    if (!user) return;
+    const userDocRef = doc(db, "users", currentUser.id);
+    try {
+      await updateDoc(userDocRef, {
+        blocked: isReceiverBlocked ? arrayRemove(user.id) : arrayUnion(user.id),
+      });
+      changedBlock();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -14,12 +38,13 @@ const Detail = () => {
         console.error("Sign out error:", error);
       });
   };
+
   return (
     <>
       <div className="detail">
         <div className="user">
-          <img src="./avatar.png" alt="" />
-          <h2>Bui Duc Thang</h2>
+          <img src={user?.avatar || "./avatar.png"} alt="" />
+          <h2></h2>
           <p>i alway try to be better</p>
         </div>
         <div className="info">
@@ -56,7 +81,13 @@ const Detail = () => {
             </div>
           </div>
 
-          <button>Block User</button>
+          <button onClick={handleBlock}>
+            {isCurrentUserBlocked
+              ? "You are Blocked!"
+              : isReceiverBlocked
+              ? "User blocked"
+              : "Block User"}
+          </button>
           <button className="logout" onClick={handleLogout}>
             Logout
           </button>
