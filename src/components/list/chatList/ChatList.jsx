@@ -9,7 +9,6 @@ const ChatList = () => {
   const [addMode, setAddMode] = useState(false);
   const [input, setInput] = useState("");
   const [chats, setChats] = useState([]);
-  const { chatId, user } = useChatStore();
 
   const { currentUser } = useUserStore();
   const { changeChat } = useChatStore();
